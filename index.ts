@@ -45,7 +45,36 @@ class DomustoPushBullet extends DomustoPlugin {
 
     }
 
-    sendMessageToAll(title: string, message: string) {
+    /**
+     * Executed when a signal is received for this plugin
+     *
+     * @param {Domusto.Signal} signal
+     * @memberof DomustoShell
+     */
+    onSignalReceivedForPlugin(signal: Domusto.Signal) {
+
+        switch (signal.type) {
+            case 'note':
+                this.sendNoteToAll(signal.data['title'], signal.data['message']);
+                break;
+            case 'link':
+            case 'file':
+                util.warning('No Pushbullet action defined for ', signal.type);
+            default:
+                util.error('No Pushbullet action defined for ', signal.type);
+                break;
+        }
+
+    }
+
+    /**
+     * Push message to all subscribed api keys
+     *
+     * @param {string} title Message title
+     * @param {string} message Message content
+     * @memberof DomustoPushBullet
+     */
+    sendNoteToAll(title: string, message: string) {
 
         this._pushBulletInstances.forEach(instance => {
             instance.note('', title, message);
