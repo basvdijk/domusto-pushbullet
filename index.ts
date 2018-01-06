@@ -53,15 +53,15 @@ class DomustoPushBullet extends DomustoPlugin {
      */
     onSignalReceivedForPlugin(signal: Domusto.Signal) {
 
-        switch (signal.type) {
+        switch (signal.deviceId) {
             case 'note':
                 this.sendNoteToAll(signal.data['title'], signal.data['message']);
                 break;
             case 'link':
             case 'file':
-                util.warning('No Pushbullet action defined for ', signal.type);
+                util.warning('No Pushbullet action defined for ', signal.deviceId);
             default:
-                util.error('No Pushbullet action defined for ', signal.type);
+                util.error('No Pushbullet action defined for ', signal.deviceId);
                 break;
         }
 

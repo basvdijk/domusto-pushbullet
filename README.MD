@@ -34,20 +34,42 @@ $ ./domusto.js plugin install basvdijk/domusto-pushbullet
             'APIKEY2'
         ],
     },
+}
+```
+
+## Example devices
+
+```js
+{
+    id: 'CHIME1',
+    screens: ['test'],
+    enabled: true,
+    role: 'output',
+    name: 'doorbell',
+    type: 'switch',
+    subType: 'momentary',
+    plugin: {
+        id: 'RFXCOM',
+        deviceId: 'Chime1/SELECT_PLUS-0x00123EF',
+    },
     triggers: [
         {
-            listenToEvent: {
-                deviceId: 'CHIME1',
-                events: ['trigger'],
-            },
-            execute: {
-                event: 'sendMessageToAll',
-                parameters: [
-                    'Doorbell',    // Title
-                    'Ding Dong!'   // Message
-                ]
+            listenToEvents: ['trigger'],
+            pluginId: 'SHELL',
+            deviceId: 'shell',
+            data: {
+                shellCommand: 'aplay build/assets/audio/doorbell.wav'
+            }
+        },
+        {
+            listenToEvents: ['trigger'],
+            pluginId: 'PUSHBULLET',
+            deviceId: 'note',
+            data: {
+                title: 'Doorbell',
+                message: 'Ding Dong!'
             }
         },
     ],
-}
+},
 ```
