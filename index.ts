@@ -1,4 +1,3 @@
-import util from '../../util';
 import config from '../../config';
 
 // DOMUSTO
@@ -41,7 +40,7 @@ class DomustoPushBullet extends DomustoPlugin {
             this._pushBulletInstances.push(new PushBullet(key));
         });
 
-        util.header('Pushbullet ready for sending data');
+        this.console.header('Pushbullet ready for sending data');
 
     }
 
@@ -59,9 +58,9 @@ class DomustoPushBullet extends DomustoPlugin {
                 break;
             case 'link':
             case 'file':
-                util.warning('No Pushbullet action defined for ', signal.deviceId);
+                this.console.warning('No Pushbullet action defined for ', signal.deviceId);
             default:
-                util.error('No Pushbullet action defined for ', signal.deviceId);
+                this.console.error('No Pushbullet action defined for ', signal.deviceId);
                 break;
         }
 
