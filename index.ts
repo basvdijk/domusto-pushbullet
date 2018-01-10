@@ -1,6 +1,6 @@
-import config from '../../config';
 
 // DOMUSTO
+import config from '../../config';
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 
 // INTERFACES
@@ -19,7 +19,7 @@ import * as PushBullet from 'pushbullet';
  */
 class DomustoPushBullet extends DomustoPlugin {
 
-    private _pushBulletInstances = [];
+    private pushBulletInstances = [];
 
     /**
      * Creates an instance of DomustoPushBullet.
@@ -36,8 +36,9 @@ class DomustoPushBullet extends DomustoPlugin {
             website: 'http://domusto.com'
         });
 
+        // Create a new PushBullet instance for each api key
         pluginConfiguration.settings.apiKeys.forEach(key => {
-            this._pushBulletInstances.push(new PushBullet(key));
+            this.pushBulletInstances.push(new PushBullet(key));
         });
 
         this.console.header('Pushbullet ready for sending data');
@@ -58,7 +59,6 @@ class DomustoPushBullet extends DomustoPlugin {
                 break;
             case 'link':
             case 'file':
-                this.console.warning('No Pushbullet action defined for ', signal.deviceId);
             default:
                 this.console.error('No Pushbullet action defined for ', signal.deviceId);
                 break;
@@ -75,7 +75,7 @@ class DomustoPushBullet extends DomustoPlugin {
      */
     sendNoteToAll(title: string, message: string) {
 
-        this._pushBulletInstances.forEach(instance => {
+        this.pushBulletInstances.forEach(instance => {
             instance.note('', title, message);
         });
 
