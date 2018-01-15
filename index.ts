@@ -36,12 +36,25 @@ class DomustoPushBullet extends DomustoPlugin {
             website: 'http://domusto.com'
         });
 
-        // Create a new PushBullet instance for each api key
-        pluginConfiguration.settings.apiKeys.forEach(key => {
-            this.pushBulletInstances.push(new PushBullet(key));
-        });
+        this.pluginConfiguration = pluginConfiguration;
 
-        this.console.header('Pushbullet ready for sending data');
+        const isConfigurationValid = this.validateConfigurationAttributes(pluginConfiguration.settings, [
+            {
+                attribute: 'apiKeys',
+                type: 'object'
+            }
+        ]);
+
+        if (isConfigurationValid) {
+
+            // Create a new PushBullet instance for each api key
+            pluginConfiguration.settings.apiKeys.forEach(key => {
+                this.pushBulletInstances.push(new PushBullet(key));
+            });
+
+            this.console.header(`${pluginConfiguration.id} plugin ready for sending / receiving data`);
+
+        }
 
     }
 
