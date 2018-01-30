@@ -4,7 +4,7 @@ import config from '../../config';
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 
 // INTERFACES
-import { Domusto } from '../../domusto/DomustoInterfaces';
+import { Domusto } from '../../domusto/DomustoTypes';
 
 // PLUGIN SPECIFIC
 import * as PushBullet from 'pushbullet';
@@ -40,16 +40,16 @@ class DomustoPushBullet extends DomustoPlugin {
 
         const isConfigurationValid = this.validateConfigurationAttributes(pluginConfiguration.settings, [
             {
-                attribute: 'apiKeys',
+                attribute: 'accessTokens',
                 type: 'object'
             }
         ]);
 
         if (isConfigurationValid) {
 
-            // Create a new PushBullet instance for each api key
-            pluginConfiguration.settings.apiKeys.forEach(key => {
-                this.pushBulletInstances.push(new PushBullet(key));
+            // Create a new PushBullet instance for each access token
+            pluginConfiguration.settings.accessTokens.forEach(token => {
+                this.pushBulletInstances.push(new PushBullet(token));
             });
 
             this.console.header(`${pluginConfiguration.id} plugin ready for sending / receiving data`);

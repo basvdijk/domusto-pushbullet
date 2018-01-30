@@ -1,7 +1,7 @@
 # Pushbullet
 
 ```
-plugin:    Pushbullet push messages
+plugin:    Allows DOMUSTO to send Pushbullet push messages to your devices
 author:    Bas van Dijk
 category:  system
 version:   0.0.1
@@ -11,6 +11,9 @@ website:   http://domusto.com
 ## Hardware needed
 - none
 
+## Software needed
+- Pushbullet.com account
+
 ## Tested with
  - RFXcom events
 
@@ -18,6 +21,11 @@ website:   http://domusto.com
 ```sh
 $ ./domusto.js plugin install basvdijk/domusto-pushbullet
 ```
+
+## Get Pushbullet access token
+The Pushbullet plugin need acces to the Pushbullet API. To grand DOMUSTO access you'll need an access token so the Pushbullet server knows who you are. You can get one from the [Pushbullet Account Settings](https://www.pushbullet.com/#settings/account) page.
+
+The DOMUSTO Pushbullet plugin supports to broadcast to mutiple Pushbullet users. An use case could be a doorbell where multiple Pushbullet users need to be notified when pressed.
  
 ## Configuration
 
@@ -26,18 +34,19 @@ $ ./domusto.js plugin install basvdijk/domusto-pushbullet
 
 ```js
 {
+    id: 'PUSHBULLET',
     enabled: true,
-    type: 'PUSHBULLET',
     settings: {
-        apiKeys: [
-            'APIKEY1',
-            'APIKEY2'
+        accessTokens: [
+            '<ACCESS TOKEN 1>',
+            '<ACCESS TOKEN 2>'
         ],
     },
+
 }
 ```
 
-## Example devices
+## Example device
 
 ```js
 {
